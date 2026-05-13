@@ -5,7 +5,7 @@
 
 set -e
 
-VERSION="0.7.8"
+VERSION="0.7.9"
 REPO="seryai/sery-link"
 BASE="https://github.com/${REPO}/releases/download/v${VERSION}"
 
