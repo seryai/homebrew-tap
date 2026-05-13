@@ -5,8 +5,26 @@
 
 set -e
 
-VERSION="0.8.1"
 REPO="seryai/sery-link"
+
+# ── Resolve latest version from GitHub ───────────────────────────────────────
+
+if command -v curl >/dev/null 2>&1; then
+  VERSION=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" \
+    | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/')
+elif command -v wget >/dev/null 2>&1; then
+  VERSION=$(wget -qO- "https://api.github.com/repos/${REPO}/releases/latest" \
+    | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/')
+else
+  echo "Error: curl or wget required"
+  exit 1
+fi
+
+if [ -z "$VERSION" ]; then
+  echo "Error: could not determine latest version"
+  exit 1
+fi
+
 BASE="https://github.com/${REPO}/releases/download/v${VERSION}"
 
 # ── Detect OS and arch ───────────────────────────────────────────────────────
@@ -29,7 +47,6 @@ case "$OS" in
   Linux)
     case "$ARCH" in
       x86_64)
-        # Prefer .deb on Debian/Ubuntu, fall back to AppImage
         if command -v dpkg >/dev/null 2>&1; then
           ASSET="Sery.Link_${VERSION}_amd64.deb"
           PLATFORM="linux-deb"
@@ -62,11 +79,8 @@ echo "Downloading ${ASSET}..."
 
 if command -v curl >/dev/null 2>&1; then
   curl -fsSL --progress-bar "$URL" -o "$DEST"
-elif command -v wget >/dev/null 2>&1; then
-  wget -q --show-progress "$URL" -O "$DEST"
 else
-  echo "Error: curl or wget required"
-  exit 1
+  wget -q --show-progress "$URL" -O "$DEST"
 fi
 
 # ── Install ──────────────────────────────────────────────────────────────────
