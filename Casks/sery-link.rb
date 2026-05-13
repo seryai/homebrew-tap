@@ -1,5 +1,5 @@
 cask "sery-link" do
-  version "0.8.0"
+  version "0.8.1"
 
   on_arm do
     url "https://github.com/seryai/sery-link/releases/download/v#{version}/Sery.Link_#{version}_aarch64.dmg"
