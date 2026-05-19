@@ -3,12 +3,12 @@ cask "sery-link" do
 
   on_arm do
     url "https://github.com/seryai/sery-link/releases/download/v#{version}/Sery.Link_#{version}_aarch64.dmg"
-    sha256 "b6555c8eacfab8b824dcb47014159bef1d1de5701e8b999726c4d466b58d551b"
+    sha256 "80b2b8d3e88c7181dcb8eca0bf132915b55243e1411206f99636189f2019161b"
   end
 
   on_intel do
     url "https://github.com/seryai/sery-link/releases/download/v#{version}/Sery.Link_#{version}_x64.dmg"
-    sha256 "0ea8bfe37a0aff22e587c13a620f10cf21998317d53ae2fbdff2e2f2be1c15eb"
+    sha256 "3d59269077ab3e967bea06edbf385c6c9ea0cf378463794f7a52a624a952c985"
   end
 
   name "Sery Link"
